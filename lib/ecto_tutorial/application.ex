@@ -5,6 +5,7 @@ defmodule EctoTutorial.Application do
 
   def start(_type, _args) do
     children = [
+      {EctoTutorial.Repo, []}
     ]
 
     opts = [strategy: :one_for_one, name: EctoTutorial.Supervisor]
