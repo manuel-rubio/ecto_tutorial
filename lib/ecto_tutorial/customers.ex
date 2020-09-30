@@ -55,7 +55,16 @@ defmodule EctoTutorial.Customers do
   It should return the Customer struct in an ok-tuple or an error.
   """
   def update(id, first_name, last_name) do
-    {:error, :noimpl}
+    case get(id) do
+      nil ->
+        {:error, :notfound}
+
+      %Customer{} = customer ->
+        params = %{first_name: first_name, last_name: last_name}
+        customer
+        |> Customer.changeset(params)
+        |> Repo.update()
+    end
   end
 
   @doc """
