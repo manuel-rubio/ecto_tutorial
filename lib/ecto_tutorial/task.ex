@@ -1,7 +1,8 @@
 defmodule EctoTutorial.Task do
   use Ecto.Schema
   import Ecto.Changeset
-  alias EctoTutorial.{Employee, Repo, TaskEmployee}
+  import Ecto.Query, only: [from: 2]
+  alias EctoTutorial.{Employee, Repo, Task, TaskEmployee}
 
   schema "tasks" do
     field :name, :string
@@ -20,10 +21,19 @@ defmodule EctoTutorial.Task do
     |> validate_required(@required_fields)
   end
 
-  def assign_employee(task, employee) do
+  def assign_employee(%Task{} = task, employee) do
     task = Repo.preload(task, :employees)
     task
     |> change()
     |> put_assoc(:employees, [employee | task.employees])
+  end
+
+  def assign_employee(%Ecto.Changeset{} = task, employee) do
+    employees = get_field(task, :employees)
+    put_assoc(task, :employees, [employee | employees])
+  end
+
+  def list_pending(query \\ Task) do
+    from(t in query, where: not t.completed)
   end
 end

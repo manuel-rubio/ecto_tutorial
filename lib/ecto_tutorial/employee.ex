@@ -1,5 +1,6 @@
 defmodule EctoTutorial.Employee do
   use Ecto.Schema
+  import Ecto.Query, only: [from: 2]
   import Ecto.Changeset
   alias EctoTutorial.{
     Department,
@@ -62,5 +63,17 @@ defmodule EctoTutorial.Employee do
     employee
     |> change()
     |> put_assoc(:tasks, [task | employee.tasks])
+  end
+
+  def list(query \\ Employee) do
+    from(e in query, order_by: [:hire_date])
+  end
+
+  def count_by_department(query \\ Employee) do
+    from(
+      e in query,
+      join: d in assoc(e, :department),
+      group_by: d.id,
+      select: [count(e.id), d.name])
   end
 end

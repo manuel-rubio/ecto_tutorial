@@ -7,8 +7,10 @@ alias EctoTutorial.{
   Insurance,
   Repo,
   Task,
-  TaskEmployee
+  TaskEmployee,
+  Tasks
 }
+import Ecto.Query, only: [from: 1, from: 2]
 
 Application.put_env(:elixir, :ansi_enabled, true)
 
