@@ -7,7 +7,7 @@ defmodule EctoTutorial.Customer do
     field :last_name, :string
     field :email, :string
     field :phone, :string
-    field :preferred_contact, :string
+    field :preferred_contact, Ecto.Enum, values: [:phone, :email]
     timestamps()
   end
 
@@ -27,6 +27,5 @@ defmodule EctoTutorial.Customer do
     |> validate_format(:phone, ~r/^[0-9 +]+$/)
     |> validate_length(:first_name, min: 3, max: 20)
     |> validate_length(:last_name, min: 5, max: 50)
-    |> validate_inclusion(:preferred_contact, ~w[email phone])
   end
 end

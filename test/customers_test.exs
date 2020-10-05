@@ -51,7 +51,7 @@ defmodule EctoTutorial.CustomersTest do
         first_name: "Dennis",
         last_name: "Ritchie",
         phone: "+1 111222333",
-        preferred_contact: "phone"
+        preferred_contact: :phone
       }} = Customers.insert_by_phone("Dennis", "Ritchie", "+1 111222333")
       assert {:ok, _} = Customers.delete(customer.id)
     end
@@ -67,7 +67,7 @@ defmodule EctoTutorial.CustomersTest do
         first_name: "Dennis",
         last_name: "Ritchie",
         email: "dennis@bell.com",
-        preferred_contact: "email"
+        preferred_contact: :email
       }} = Customers.insert_by_email("Dennis", "Ritchie", "dennis@bell.com")
       assert {:ok, _} = Customers.delete(customer.id)
     end

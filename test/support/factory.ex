@@ -17,7 +17,7 @@ defmodule EctoTutorial.Factory do
         last_name: sequence(:last_name, ["Starr", "Harrison", "McCartney", "Lennon"]),
         email: sequence(:email, &"beat#{&1}@music.com"),
         phone: sequence(:phone, &"+44 #{rem(123_456_221 * &1, 1_000_000_000)}"),
-        preferred_contact: sequence(:contact, ["phone", "email"])
+        preferred_contact: sequence(:contact, [:phone, :email])
       }
 
     merge_attributes(customer, attrs)

@@ -32,7 +32,7 @@ defmodule EctoTutorial.Customers do
       first_name: first_name,
       last_name: last_name,
       phone: phone,
-      preferred_contact: "phone"
+      preferred_contact: :phone
     })
   end
 
@@ -46,7 +46,7 @@ defmodule EctoTutorial.Customers do
       first_name: first_name,
       last_name: last_name,
       email: email,
-      preferred_contact: "email"
+      preferred_contact: :email
     })
   end
 
