@@ -1,23 +1,17 @@
 defmodule EctoTutorial.CustomersTest do
-  use ExUnit.Case
-
+  use ExUnit.Case, async: false
+  import EctoTutorial.Factory
   alias EctoTutorial.{Customer, Customers, Repo}
 
   setup do
-    # Explicitly get a connection before each test
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Repo)
+    Repo.delete_all(Customer)
+    :ok
   end
 
   describe "get:" do
     test "success" do
-      assert %Customer{
-        email: "manuel.rubio@erlang-solutions.com",
-        first_name: "Manuel",
-        id: 1,
-        last_name: "Rubio",
-        phone: nil,
-        preferred_contact: "email"
-      } = Customers.get(1)
+      customer = insert(:customer)
+      assert customer == Customers.get(customer.id)
     end
 
     test "not found" do
@@ -31,14 +25,8 @@ defmodule EctoTutorial.CustomersTest do
 
   describe "get_by_last_name:" do
     test "success" do
-      assert %Customer{
-        email: "manuel.rubio@erlang-solutions.com",
-        first_name: "Manuel",
-        id: 1,
-        last_name: "Rubio",
-        phone: nil,
-        preferred_contact: "email"
-      } = Customers.get_by_last_name("Rubio")
+      customer = insert(:customer)
+      assert customer == Customers.get_by_last_name(customer.last_name)
     end
 
     test "not found" do
@@ -52,7 +40,8 @@ defmodule EctoTutorial.CustomersTest do
 
   describe "get_all:" do
     test "success" do
-      assert 3 == length([%Customer{} | _] = Customers.get_all())
+      insert_list(4, :customer)
+      assert 4 == length([%Customer{} | _] = Customers.get_all())
     end
   end
 
