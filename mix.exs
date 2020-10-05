@@ -30,6 +30,7 @@ defmodule EctoTutorial.MixProject do
       {:ecto_sql, "~> 3.5"},
       {:typed_ecto_schema, "~> 0.1"},
       {:postgrex, ">= 0.0.0"},
+      {:money, "~> 1.8"},
       {:ex_machina, "~> 2.4", only: :test}
     ]
   end

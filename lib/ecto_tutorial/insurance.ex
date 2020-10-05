@@ -4,7 +4,7 @@ defmodule EctoTutorial.Insurance do
   alias EctoTutorial.Employee
 
   schema "insurances" do
-    field :balance, :integer
+    field :balance, Money.Ecto.Amount.Type, default: Money.new(0)
     belongs_to :employee, Employee
     timestamps()
   end
