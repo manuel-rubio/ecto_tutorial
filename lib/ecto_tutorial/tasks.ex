@@ -20,35 +20,41 @@ defmodule EctoTutorial.Tasks do
   Create a task
   """
   def create_task(name) do
-    {:error, :noimpl}
+    Task.changeset(%Task{}, %{"name" => name})
+    |> Repo.insert()
   end
 
   @doc """
   Remove task
   """
   def delete_task(%Task{} = task) do
-    {:error, :noimpl}
+    Task.delete(task)
+    |> Repo.delete()
   end
 
   @doc """
   Toggle task as complete/incomplete
   """
   def toggle_task(%Task{completed: completed} = task) do
-    {:error, :noimpl}
+    task
+    |> Task.changeset(%{"completed" => not completed})
+    |> Repo.update()
   end
 
   @doc """
   Search tasks based on name (Hint: use like)
   """
   def search_by_name(name) do
-    {:error, :noimpl}
+    Task.search_by_name(name)
+    |> Repo.all()
   end
 
   @doc """
   Retrieve all the tasks given the employee ID
   """
   def list_by_employee_id(employee_id) do
-    {:error, :noimpl}
+    Task.list_by_employee_id(employee_id)
+    |> Repo.all()
   end
 
   @doc """
@@ -57,5 +63,7 @@ defmodule EctoTutorial.Tasks do
   """
   def get_stats do
     {:error, :noimpl}
+    Task.get_stats()
+    |> Repo.all()
   end
 end
